@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" name="description" content="">
+        <title>KittenStagram</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- google fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Pacifico|Satisfy" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+        <script type="text/javascript" src="{% static 'social_media/js/masonry.js' %}"></script>
+        <script type="text/javascript" src="{% static 'social_media/js/imagesloaded.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'social_media/css/style.css' %}">
+        <!-- jquery functions -->
+        <script>
+            $(document).ready(function() {
+                console.log('jquery');
+                var newPhoto;
+
+                var $grid = $('.grid').masonry({
+                    itemSelector: '.grid-item',
+                    percentPosition: true,
+                    columnWidth: '.grid-sizer',
+                    gutter: '.gutter-sizer',
+                });
+
+                $grid.imagesLoaded().progress( function() {
+                    $grid.masonry();
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+
+
+        {% include 'social_media/nav_bar.html' %}
+
+<!-- modal for new post/upload photo -->
+
+
+        <div class="container" id="wall_container">
+            <div class="row">
+                <div class="grid">
+                    <div class="grid-sizer"></div>
+                    <div class="gutter-sizer"></div>
+
+
+                    <div class="grid-item">
+                        <div class="thumbnail">
+                            <img src="../static/social_media/img/charlie.jpg" alt="cat1" />
+                            <div class="caption">
+                                <p>This is where the initial post will go</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="thumbnail">
+                            <img src="../static/social_media/img/charlie.jpg" alt="cat1" />
+                            <div class="caption">
+                                <p>This is where the initial post will go</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="thumbnail">
+                            <img src="../static/social_media/img/charlie.jpg" alt="cat1" />
+                            <div class="caption">
+                                <p>This is where the initial post will go</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="thumbnail">
+                            <img src="../static/social_media/img/charlie.jpg" alt="cat1" />
+                            <div class="caption">
+                                <p>This is where the initial post will go</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

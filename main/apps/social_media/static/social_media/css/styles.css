@@ -1,0 +1,73 @@
+body {
+    /* padding-top: 100px; */
+    background-image: url("../img/paws_background.jpg");
+    background-repeat: repeat;
+}
+/* #nav_container */
+        header.page-header {
+            /* padding-top: 1em; */
+            /* text-align: center; */
+            margin: 0px;
+            background-color: #fff;
+            background-image: url("../img/paws_background.jpg");
+            background-repeat: repeat;
+            border-bottom: none;
+        }
+        #nav_container {
+        }
+            header h1 {
+                text-align: center;
+                font-family: 'Leckerli One', cursive;
+                font-size: 6.25em;
+                color: #000;
+                margin-bottom: 20px;
+            }
+            .navbar {
+                margin-bottom: 0px;
+            }
+                .navbar-brand {
+                    padding-top: 5px;
+                }
+                    img#myIcon {
+                        width: 49px;
+                        float: left;
+                    }
+
+
+/* wall_container */
+    #wall_container {
+        /* padding-top: 100px; */
+        padding-top: 15em;
+    }
+    #wall_container div.row {
+        margin-left: .5em;
+        margin-right: -.5em;
+    }
+    /* masonry */
+    .grid:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+        .grid-sizer,
+        .grid-item {
+            width: 32%;
+            /* float: left; */
+        }
+        .gutter-sizer {
+            width: 1%;
+        }
+
+    /* font-family: 'Pacifico', cursive;
+    font-family: 'Satisfy', cursive;
+    font-family: 'Leckerli One', cursive; */
+
+/* add photo form */
+    #photo_label {
+        cursor: pointer;
+    }
+    input#photo {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>KittenStagram</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- google fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Pacifico|Satisfy" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        {% load staticfiles %}
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+        <script type="text/javascript" src="{% static 'social_media/js/masonry.js' %}"></script>
+        <script type="text/javascript" src="{% static 'social_media/js/imagesloaded.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'social_media/css/styles.css' %}">
+
+        <script>
+            $(document).ready(function() {
+
+                // normal file input option is ugly and doesn't match bootstrap theme - made input 'invisible' and created new stylized option to go on top of it
+                // when photo is selected via input, parse the value and return the filename, put the filename in the fake input field
+                $('#photo').change(function() {
+                    var str = $('#photo').val();
+                    var res = str.split("\\");
+                    var innerText = '<div class="form-control">';
+                    innerText += res[res.length-1];
+                    innerText += '</div>';
+                    $('#pName').html(innerText);
+                });
+
+
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+
+            {% include "./nav_bar.html" %}
+
+            <!-- <img id="frame" src="../static/social_media/img/frame1.png" alt="cat_frame"> -->
+            <div>
+                {% if messages %}
+                    <div class="alert alert-danger">
+                        {% for alert in messages %}
+                            <p {% if messages.tags %} class="messages.tags" {% endif %}>{{ alert }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <section style="padding-top:200px;">
+                <div class="well col-md-5">
+                    <h2>add a new photo</h2>
+                    <form class="form-horizontal" enctype="multipart/form-data" action="add_photo" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
+
+                        <div>
+                            <label id="photo_label" class="btn btn-info btn-lg" for="photo">Browse Photos</label>
+                            <input id="photo" type="file" name="photo" />
+                        </div>
+
+                        <div id="pName" style="padding: 1em 0;">
+                            <!-- innerText goes here (results in fake form-control field with filename) -->
+                        </div>
+
+                        <div style="text-align:center;">
+                            <input id="submit" class="btn btn-primary" type="submit" value="Confirm" />
+                        </div>
+                    </form>
+
+
+                </div>
+
+                <div class="well col-md-offset-1 col-md-6">
+
+                </div>
+            </section>
+
+            {% if photos %}
+            {% for photo in photos %}
+            <p>{{ photo.id }} | {{ photo.user.id }} | {{ photo.photo }} | {{ photo.created_at }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </body>
+</html>

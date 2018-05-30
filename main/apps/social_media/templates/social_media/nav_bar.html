@@ -1,0 +1,60 @@
+
+
+<header class="page-header navbar-fixed-top">
+    <div class="container" id="nav_container">
+
+        <h1>KittenStagram</h1>
+
+        <nav id="myNav" class="navbar navbar-default">
+
+            <div class="container-fluid">
+            <!-- if collapse == true -->
+                <div class="navbar-header">
+                <!-- collapse box image -->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNav" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                <!-- brand icon - routes to dashboard on-click -->
+                    <a class="navbar-brand" href="#">
+                        <img id="myIcon" alt="Brand" src="../static/social_media/img/icon.png">
+                    </a>
+                </div> <!-- close navbar-header -->
+
+            <!-- all nav bits incuded in collapse -->
+                <div class="collapse navbar-collapse" id="myNav">
+                    <ul class="nav navbar-nav">
+                        <li class="{{ nav_dashboard }}"><a href="{%url 'social_media:index' %}">Dashboard</a></li>
+                        <li class="{{ nav_myAlbum }}"><a href="{%url 'social_media:index' %}">My Album</a></li>
+                        <li class="{{ nav_hearts }}"><a href="{%url 'social_media:index' %}">My <i class="glyphicon glyphicon-heart"></i>s</a></li>
+                        <li class="{{ nav_account }}"><a href="{% url 'social_media:poop' %}">My Account</a></li>
+                        <li class="{{ nav_photo }}">
+                            <a href="{% url 'social_media:add_photo' %}">
+                                <i class="glyphicon glyphicon-plus"></i> Post
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                About <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">about this site</a></li>
+                                <li><a href="#">about the developer</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="navbar-text"><strong>Hi, {{ request.session.sessionUserName }}!</strong></li>
+                        <li>
+                            <a class="navbar-link" href="{% url 'login_reg:logout' %}"><i>Logout</i></a>
+                        </li>
+                    </ul>
+
+                </div> <!-- close navbar-collapse -->
+            </div> <!-- close container-fluid -->
+        </nav>
+    </div> <!-- close #container_1 -->
+</header> <!-- close fixed header -->

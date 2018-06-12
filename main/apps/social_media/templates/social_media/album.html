@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" name="description" content="">
+        <title>KittenStagram</title>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- google fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Pacifico|Satisfy" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+        <script type="text/javascript" src="{% static 'social_media/js/masonry.js' %}"></script>
+        <script type="text/javascript" src="{% static 'social_media/js/imagesloaded.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'social_media/css/style.css' %}">
+        <!-- jquery functions -->
+        <script>
+            $(document).ready(function() {
+                // masonry layout defined
+                var $grid = $('.grid').imagesLoaded(function() {
+                    $grid.masonry({
+                        itemSelector: '.grid-item',
+                        columnWidth: '.grid-sizer',
+                        percentPosition: true
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+    <!-- include navbar -->
+        {% include 'social_media/nav_bar.html' %}
+
+
+
+        <div class="container">
+            <div class="row">
+                <div class="grid">
+                    <div class="grid-sizer"></div>
+                    <div class="gutter-sizer"></div>
+
+                    {% if myPhotos %}
+                        {% for photo in myPhotos %}
+                            <div class="grid-item">
+                                <div class="thumbnail">
+                                    <img src="../media/{{ photo.photo }}" alt="{{ photo.id }}" />
+                                    <div class="caption">
+                                        <p>This is where the initial post will go</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+        </div> <!-- close container -->
+    </body>
+</html>

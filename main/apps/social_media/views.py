@@ -24,7 +24,9 @@ def index(request):
     context = {
         # 'sessionUser':User.objects.get(id=userID),
         'users':User.objects.all(),
-        'nav_dashboard':'active',
+        'photos':Photo.objects.all(), # change this to bricks
+        'nav_dashboard':'active_page',
+        # 'nav_dashboard':'active',
     }
 
     return render(request, 'social_media/index.html', context)
@@ -36,13 +38,20 @@ def account(request, id):
     context = {
         'sessionUser':User.objects.get(id=id),
         'users':User.objects.all(),
-        'nav_account':'active',
+        'nav_account':'active_page',
+        # 'nav_account':'active',
     }
 
     return render(request, 'social_media/account.html', context)
 
 
-def new_brick(request):
+def new_brick(request, id):
+    context = {
+        'pic':Photo.objects.get(id=id)
+    }
+    if request.method == "GET":
+        return render(request, 'social_media/new_brick.html', context)
+
     if request.method == "POST":
         print (request.POST)
         # verify = Message.messageManager.create(request.POST)
@@ -59,7 +68,8 @@ def new_brick(request):
 def add_photo(request):
 
     context = {
-        'nav_photo':'active',
+        'nav_photo':'active_page',
+        # 'nav_photo':'active',
         'photos':Photo.objects.all()
     }
     if request.method == "GET":
@@ -67,7 +77,6 @@ def add_photo(request):
 
     elif request.method == "POST":
         # set validation
-        # postData = (request.POST, request.FILES)
         id = request.POST['user']
         new_photo = Photo()
         new_photo.user = User.objects.get(id=id)
@@ -75,11 +84,20 @@ def add_photo(request):
         new_photo.save()
         saved = True
 
-        request.session['new_photo'] = new_photo
+        picID = new_photo.id
+        return redirect(reverse('social_media:new_brick', kwargs={'id':picID}))
 
+
+
+def myAlbum(request):
+    context = {
+        'myPhotos':Photo.objects.filter(user=request.session['sessionUserID']),
+        'nav_myAlbum':'active_page'
+        # 'nav_myAlbum':'active'
+    }
+    if request.method == "GET":
         print ('-'*20)
-        print ('new_photo', new_photo)
-        return redirect(reverse('social_media:new_brick'))
+        return render(request, 'social_media/album.html', context)
 
 
 

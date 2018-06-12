@@ -1,32 +1,29 @@
 <!DOCTYPE html>
+{% load staticfiles %}
+
 <html lang="en">
     <head>
         <meta charset="UTF-8" name="description" content="">
-        <title>PIC Home</title>
+        <title>KittenStagram</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- google fonts -->
         <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Pacifico|Satisfy" rel="stylesheet">
-        {% load staticfiles %}
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+        <script type="text/javascript" src="{% static 'social_media/js/masonry.js' %}"></script>
+        <script type="text/javascript" src="{% static 'social_media/js/imagesloaded.js' %}"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'social_media/css/style.css' %}">
     </head>
     <body>
+        {% include "./nav_bar.html" %}
+
+
         <div class="container">
-
-            {% include "./nav_bar.html" %}
-
             <!-- <img id="frame" src="../static/social_media/img/frame1.png" alt="cat_frame"> -->
-            <section style="padding-top:200px;">
-                <!-- <div class="well" style="height:300px;"> -->
-                    {% if users %}
-                        {% for user in users %}
-                            <p>{{ user.username }}</p>
-                        {% endfor %}
-                    {% endif %}
-
-                <!-- </div> -->
+            <section>
+                <h1>This MIGHT be used to change themes etc - may be deleted</h1>
             </section>
         </div>
     </body>

@@ -1,32 +1,47 @@
 <!DOCTYPE html>
+{% load staticfiles %}
+
 <html lang="en">
     <head>
+        <meta charset="UTF-8" name="description" content="">
         <title>KittenStagram</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- google fonts -->
         <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Pacifico|Satisfy" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        {% load staticfiles %}
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
-        <script type="text/javascript" src="{% static 'social_media/js/masonry.js' %}"></script>
-        <script type="text/javascript" src="{% static 'social_media/js/imagesloaded.js' %}"></script>
-        <link rel="stylesheet" type="text/css" href="{% static 'social_media/css/styles.css' %}">
-
+        <link rel="stylesheet" type="text/css" href="{% static 'social_media/css/style.css' %}">
+        <!-- jquery functions -->
         <script>
             $(document).ready(function() {
 
                 // normal file input option is ugly and doesn't match bootstrap theme - made input 'invisible' and created new stylized option to go on top of it
                 // when photo is selected via input, parse the value and return the filename, put the filename in the fake input field
+                // $('#photo').change(function() {
+                //     var str = $('#photo').val();
+                //     var res = str.split("\\");
+                //     var innerText = '<div class="form-control">';
+                //     innerText += res[res.length-1];
+                //     innerText += '</div>';
+                //     $('#pName').html(innerText);
+                // });
+
                 $('#photo').change(function() {
                     var str = $('#photo').val();
                     var res = str.split("\\");
-                    var innerText = '<div class="form-control">';
+
+                    var innerText = '<div class="form-group">';
+                    innerText = '<div class="form-control">';
                     innerText += res[res.length-1];
+                    innerText += '</div> </div>';
+                    innerText += '<div class="form-group">';
+                    innerText += '<input id="submit" class="btn btn-primary" type="submit" value="Confirm" />';
                     innerText += '</div>';
-                    $('#pName').html(innerText);
+
+
+                    $('#browse').append(innerText);
                 });
 
 
@@ -34,9 +49,9 @@
         </script>
     </head>
     <body>
-        <div class="container">
+        {% include "./nav_bar.html" %}
 
-            {% include "./nav_bar.html" %}
+        <div class="container">
 
             <!-- <img id="frame" src="../static/social_media/img/frame1.png" alt="cat_frame"> -->
             <div>
@@ -49,33 +64,33 @@
                 {% endif %}
             </div>
 
-            <section style="padding-top:200px;">
-                <div class="well col-md-5">
-                    <h2>add a new photo</h2>
-                    <form class="form-horizontal" enctype="multipart/form-data" action="add_photo" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
+            <section style="text-align:center;">
+                <h3>Post A New Photo</h3>
+            </section>
 
-                        <div>
-                            <label id="photo_label" class="btn btn-info btn-lg" for="photo">Browse Photos</label>
-                            <input id="photo" type="file" name="photo" />
-                        </div>
+            <section class="well" style="width:75%; margin:auto; margin-bottom:1em;">
+                <form class="form-inline" enctype="multipart/form-data" action="add_photo" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
 
-                        <div id="pName" style="padding: 1em 0;">
-                            <!-- innerText goes here (results in fake form-control field with filename) -->
-                        </div>
+                    <div id="browse" class="form-group">
+                        <label id="photo_label" class="btn btn-info btn-lg" for="photo">Browse Photos</label>
+                        <input id="photo" type="file" name="photo" />
+                    </div>
 
-                        <div style="text-align:center;">
-                            <input id="submit" class="btn btn-primary" type="submit" value="Confirm" />
-                        </div>
-                    </form>
+                    <!-- <div id="pName" class="form-group"> -->
+                        <!-- innerText goes here (results in fake form-control field with filename) -->
+                    <!-- </div> -->
 
+                    <!-- <div class="form-group">
+                        <input id="submit" class="btn btn-primary" type="submit" value="Confirm" />
+                    </div> -->
+                </form>
 
-                </div>
+            </section>
 
-                <div class="well col-md-offset-1 col-md-6">
+            <section class="well" style="width:75%; margin:auto;">
 
-                </div>
             </section>
 
             {% if photos %}

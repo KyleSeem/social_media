@@ -25,7 +25,7 @@ def index(request):
         # 'sessionUser':User.objects.get(id=userID),
         'users':User.objects.all(),
         'photos':Photo.objects.all(), # change this to bricks
-        'nav_dashboard':'active_page',
+        'nav_dashboard':'active',
         # 'nav_dashboard':'active',
     }
 
@@ -38,7 +38,7 @@ def account(request, id):
     context = {
         'sessionUser':User.objects.get(id=id),
         'users':User.objects.all(),
-        'nav_account':'active_page',
+        'nav_account':'active',
         # 'nav_account':'active',
     }
 
@@ -68,7 +68,7 @@ def new_brick(request, id):
 def add_photo(request):
 
     context = {
-        'nav_photo':'active_page',
+        'nav_photo':'active',
         # 'nav_photo':'active',
         'photos':Photo.objects.all()
     }
@@ -92,7 +92,7 @@ def add_photo(request):
 def myAlbum(request):
     context = {
         'myPhotos':Photo.objects.filter(user=request.session['sessionUserID']),
-        'nav_myAlbum':'active_page'
+        'nav_myAlbum':'active'
         # 'nav_myAlbum':'active'
     }
     if request.method == "GET":

@@ -5,16 +5,21 @@
     <head>
         <meta charset="UTF-8" name="description" content="">
         <title>KittenStagram</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="author" content="Kyle Seem">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap 4 dependancies -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
         <!-- google fonts -->
         <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Pacifico|Satisfy" rel="stylesheet">
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
         <script type="text/javascript" src="{% static 'social_media/js/masonry.js' %}"></script>
         <script type="text/javascript" src="{% static 'social_media/js/imagesloaded.js' %}"></script>
-        <link rel="stylesheet" type="text/css" href="{% static 'social_media/css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'social_media/css/styler.css' %}">
         <!-- jquery functions -->
         <script>
             $(document).ready(function() {
@@ -37,8 +42,25 @@
 <!-- modal for new post/upload photo -->
 
 
-        <div class="container">
-            <div class="row">
+        <!-- <div class="container"> -->
+        <div class="container-fluid">
+            <div >
+                {% if photos %}
+                    {% for photo in photos %}
+                    <div class="img-thumbnail w-25 ">
+                        <figure class="figure">
+                            <img class="figure-img" src="../media/{{ photo.photo }}" alt="{{ photo.id }}" width="300"/>
+                            <figcaption class="figure-caption text-center">This is where the initial post will go</figcaption>
+                        </figure>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+
+
+
+            <!-- <div class="row">
                 <div class="grid">
                     <div class="grid-sizer"></div>
                     <div class="gutter-sizer"></div>
@@ -46,17 +68,15 @@
                     {% if photos %}
                         {% for photo in photos %}
                             <div class="grid-item">
-                                <div class="thumbnail">
-                                    <img src="../media/{{ photo.photo }}" alt="{{ photo.id }}" />
-                                    <div class="caption">
-                                        <p>This is where the initial post will go</p>
-                                    </div>
+                                <img class="img-thumbnail" src="../media/{{ photo.photo }}" alt="{{ photo.id }}" />
+                                <div class="caption">
+                                    <p>This is where the initial post will go</p>
                                 </div>
                             </div>
                         {% endfor %}
                     {% endif %}
                 </div>
-            </div>
+            </div> -->
 
         </div> <!-- close container -->
 

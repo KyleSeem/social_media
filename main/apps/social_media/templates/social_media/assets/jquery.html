@@ -1,0 +1,56 @@
+<!-- this contains all the jQuery used in this project / it is included using template inheritance in base.html -->
+
+<script>
+    $(document).ready(function() {
+
+    // isotope layout defined
+        var $grid = $('.grid').isotope({
+            itemSelector: '.grid-item',
+            percentPosition: true,
+            masonry: {
+                columnWidth: '.grid-sizer'
+            }
+        });
+
+        $grid.imagesLoaded().progress(function() {
+            $grid.isotope('layout');
+        });
+
+
+    // new post modal
+        $('#photo').change(function() {
+            $('#hiddenSubmit').trigger('click');
+        });
+
+        // if new pic was just saved
+        console.log({{ request.session.pID }});
+        if ({{ request.session.pID }} === 0) {
+            console.log('no new pic');
+        }
+        else if ({{ request.session.pID }} >= 1) {
+            console.log('one new pic');
+            $('#newPostModalButton').trigger('click');
+        }
+
+
+        // $('#submitPost').click(function() {
+        //     console.log('submitting');
+        //     $('#newPostForm').submit();
+        // })
+
+
+    });
+</script>
+
+
+<!-- <div id="selectAndPreview" class="img-thumbnail">
+    <img id="cloud" src="../static/social_media/img/cloud_upload_icon.png" alt="cloud icon" />
+    <form enctype="multipart/form-data" action="add_photo" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
+
+        <label id="getPhotoButton" class="btn btn-info d-block" for="photo">Browse Photos</label>
+        <input id="photo" class="d-none" type="file" name="photo" />
+        <input id="hiddenSubmit" class="d-none" type="submit" />
+    </form>
+</div> -->

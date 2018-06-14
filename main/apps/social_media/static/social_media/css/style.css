@@ -42,16 +42,18 @@ body {
         padding-top: 11.5rem;
     }
 
-/* add photo form */
-    #photo_label {
-        cursor: pointer;
+/* new post modal */
+    #selectAndPreview {
+        margin-bottom: 2em;
     }
-    input#photo {
-        opacity: 0;
-        position: absolute;
-        z-index: -1;
+    img#cloud {
+        width: 50%;
+        margin: auto;
+        display: block;
     }
-
+    #getPhotoButton {
+        margin: auto;
+    }
 
 /* isotope */
     .grid-sizer,

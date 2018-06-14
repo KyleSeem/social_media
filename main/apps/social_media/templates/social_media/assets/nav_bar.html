@@ -1,5 +1,5 @@
 
-<!-- <img style="float:left; width:150px;" src="../static/social_media/img/icon.png"> -->
+
 <header class="page-header fixed-top">
 
     <h1>KittenStagram</h1>
@@ -9,7 +9,6 @@
     <!-- brand icon - routes to dashboard on-click -->
         <a class="navbar-brand" href="{%url 'social_media:index' %}">
             <img id="myIcon" alt="Brand" src="../static/social_media/img/icon.png" />
-            <!-- <img id="myIcon" alt="Brand" src="../static/social_media/img/icon.png" width="65" /> -->
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,8 +21,21 @@
                     <li class="nav-item {{ nav_dashboard }}"><a class="nav-link" href="{%url 'social_media:index' %}">Dashboard</a></li>
                     <li class="nav-item {{ nav_myAlbum }}"><a class="nav-link" href="{%url 'social_media:myAlbum' %}">My Album</a></li>
                     <li class="nav-item {{ nav_account }}"><a class="nav-link" href="{% url 'social_media:poop' %}">My Account</a></li>
-                    <li class="nav-item {{ nav_photo }}"><a class="nav-link" href="{% url 'social_media:add_photo' %}">New Post</a></li>
-                    <!-- <li class="{{ nav_photo }}"><a class="nav-link" href="{% url 'social_media:add_photo' %}"><i class="glyphicon glyphicon-plus"></i> New Post</a></li> -->
+                    <!-- <li class="nav-item {{ nav_newPost }}">
+                        <a class="nav-link" role="button" data-toggle="modal" data-target="#newPostModal">New Post</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <form enctype="multipart/form-data" action="add_photo" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
+                            <label class="nav-link" for="photo">New Post</label>
+                            <input id="photo" class="d-none" type="file" name="photo" />
+                            <input id="hiddenSubmit" class="d-none" type="submit" />
+                        </form>
+                    </li>
+                    <li class="d-none">
+                        <button id="newPostModalButton" role="button" data-toggle="modal" data-target="#newPostModal"></button>
+                    </li>
 
             <!-- about dropdown -->
                     <li class="nav-item dropdown">

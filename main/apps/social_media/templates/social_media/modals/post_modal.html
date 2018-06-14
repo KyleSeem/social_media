@@ -1,0 +1,66 @@
+
+
+<!-- modal for new post pop-up -->
+
+<div id="newPostModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="newPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <!-- modal header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="newPostModalLabel">Post a new photo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        <!-- modal body -->
+            <form action="new_post" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div id="selectAndPreview" class="img-thumbnail">
+                        <img class="img-thumbnail" style="border:none;" src="../media/{{ new_pic.photo }}" alt="{{ new_pic.id }}" />
+                    </div>
+
+                    <div id="newPostForm">
+                        <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
+                        <input type="hidden" name="photo" id="photo" value="{{ request.session.pID }}" />
+                        <div class="form-group">
+                            <textarea id="caption-text" class="form-control" placeholder="add a caption..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <input type="submit" class="btn btn-primary" value="Post Photo" />
+                </div>
+            </form>
+
+
+            <!-- <div class="modal-body">
+                <div id="selectAndPreview" class="img-thumbnail">
+                    <img class="img-thumbnail" style="border:none;" src="../media/{{ new_pic.photo }}" alt="{{ new_pic.id }}" />
+                </div>
+
+                <div id="newPostForm">
+                    <form action="new_post" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
+                        <input type="hidden" name="photo" id="photo" value="{{ request.session.pID }}" />
+                        <div class="form-group">
+                            <textarea id="caption-text" class="form-control" placeholder="add a caption..."></textarea>
+                            <input class="d-none" type="submit" value="Submit" />
+                        </div>
+                    </form>
+                </div>
+            </div> -->
+
+        <!-- modal footer -->
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="submitPost" type="submit" class="btn btn-primary">Post Photo</button>
+            </div> -->
+        <!-- end of modal content -->
+        </div>
+    </div>
+</div>

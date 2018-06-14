@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 import os
 
+from PIL import Image, ExifTags
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.core.urlresolvers import reverse
@@ -18,17 +19,16 @@ from .models import User, Brick, Photo, Comment
     # print (request.session['sessionUserName'])
     # print ('-'*20)
 
-
 def index(request):
-    # Message.objects.all().delete()
+    # Photo.objects.all().delete()
+    # request.session['pID'] = 0
     context = {
-        # 'sessionUser':User.objects.get(id=userID),
         'users':User.objects.all(),
         'photos':Photo.objects.all(), # change this to bricks
         'nav_dashboard':'active',
-        # 'nav_dashboard':'active',
     }
-
+    if request.session['pID'] >= 1:
+        context['new_pic'] = Photo.objects.get(id=request.session['pID'])
     return render(request, 'social_media/index.html', context)
 
 
@@ -39,21 +39,16 @@ def account(request, id):
         'sessionUser':User.objects.get(id=id),
         'users':User.objects.all(),
         'nav_account':'active',
-        # 'nav_account':'active',
     }
 
     return render(request, 'social_media/account.html', context)
 
 
-def new_brick(request, id):
-    context = {
-        'pic':Photo.objects.get(id=id)
-    }
-    if request.method == "GET":
-        return render(request, 'social_media/new_brick.html', context)
-
+def new_post(request):
+    # take photo that was just saved, load page as if it were the dash, but include the id of the new pic, trigger modal pop with form for new post
     if request.method == "POST":
         print (request.POST)
+        return redirect(reverse('social_media:index'))
         # verify = Message.messageManager.create(request.POST)
         #
         # if verify == True:
@@ -66,16 +61,7 @@ def new_brick(request, id):
 
 
 def add_photo(request):
-
-    context = {
-        'nav_photo':'active',
-        # 'nav_photo':'active',
-        'photos':Photo.objects.all()
-    }
-    if request.method == "GET":
-        return render(request, 'social_media/add_photo.html', context)
-
-    elif request.method == "POST":
+    if request.method == "POST":
         # set validation
         id = request.POST['user']
         new_photo = Photo()
@@ -84,8 +70,12 @@ def add_photo(request):
         new_photo.save()
         saved = True
 
-        picID = new_photo.id
-        return redirect(reverse('social_media:new_brick', kwargs={'id':picID}))
+        request.session['pID'] = new_photo.id
+        return redirect(reverse('social_media:index'))
+
+
+# def rotate_image(filepath):
+
 
 
 
@@ -93,7 +83,6 @@ def myAlbum(request):
     context = {
         'myPhotos':Photo.objects.filter(user=request.session['sessionUserID']),
         'nav_myAlbum':'active'
-        # 'nav_myAlbum':'active'
     }
     if request.method == "GET":
         print ('-'*20)

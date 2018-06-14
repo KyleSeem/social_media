@@ -14,6 +14,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
+
         <!-- google fonts -->
         <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Pacifico|Satisfy" rel="stylesheet">
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
@@ -24,14 +25,6 @@
 
                 // normal file input option is ugly and doesn't match bootstrap theme - made input 'invisible' and created new stylized option to go on top of it
                 // when photo is selected via input, parse the value and return the filename, put the filename in the fake input field
-                // $('#photo').change(function() {
-                //     var str = $('#photo').val();
-                //     var res = str.split("\\");
-                //     var innerText = '<div class="form-control">';
-                //     innerText += res[res.length-1];
-                //     innerText += '</div>';
-                //     $('#pName').html(innerText);
-                // });
 
                 $('#photo').change(function() {
                     var str = $('#photo').val();
@@ -57,53 +50,42 @@
     <body>
         {% include "./nav_bar.html" %}
 
-        <div class="container">
+        <div id="main-container" class="container-fluid">
 
-            <!-- <img id="frame" src="../static/social_media/img/frame1.png" alt="cat_frame"> -->
             <div>
                 {% if messages %}
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger" role="alert">
                         {% for alert in messages %}
-                            <p {% if messages.tags %} class="messages.tags" {% endif %}>{{ alert }}</p>
+                            <span {% if messages.tags %} class="messages.tags" {% endif %}>{{ alert }}</span>
                         {% endfor %}
                     </div>
                 {% endif %}
             </div>
 
-            <section style="text-align:center;">
+            <section>
                 <h3>Post A New Photo</h3>
+
+                <div class="card">
+                    <form class="form-inline" enctype="multipart/form-data" action="add_photo" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
+
+                        <div id="browse" class="form-group">
+                            <label id="photo_label" class="btn btn-info btn-lg" for="photo">Browse Photos</label>
+                            <input id="photo" type="file" name="photo" />
+                        </div>
+                    </form>
+                </div>
             </section>
 
-            <section class="well" style="width:75%; margin:auto; margin-bottom:1em;">
-                <form class="form-inline" enctype="multipart/form-data" action="add_photo" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
-
-                    <div id="browse" class="form-group">
-                        <label id="photo_label" class="btn btn-info btn-lg" for="photo">Browse Photos</label>
-                        <input id="photo" type="file" name="photo" />
-                    </div>
-
-                    <!-- <div id="pName" class="form-group"> -->
-                        <!-- innerText goes here (results in fake form-control field with filename) -->
-                    <!-- </div> -->
-
-                    <!-- <div class="form-group">
-                        <input id="submit" class="btn btn-primary" type="submit" value="Confirm" />
-                    </div> -->
-                </form>
-
-            </section>
-
-            <section class="well" style="width:75%; margin:auto;">
-
-            </section>
 
             {% if photos %}
             {% for photo in photos %}
             <p>{{ photo.id }} | {{ photo.user.id }} | {{ photo.photo }} | {{ photo.created_at }}</p>
             {% endfor %}
             {% endif %}
-        </div>
+
+
+        </div> <!-- close #main-container -->
     </body>
 </html>

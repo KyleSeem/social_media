@@ -72,7 +72,7 @@ def show(request, id):
 
 
 def logout(request):
-    request.session.clear()
+    request.session.flush()
     return redirect(reverse('login_reg:index'))
 
 

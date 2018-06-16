@@ -33,6 +33,8 @@ def login(request):
             request.session.clear()
             request.session['sessionUserID'] = verify[1]
             request.session['sessionUserName'] = verify[2]
+            # may switch method for this later
+            request.session['pID'] = 0
             return redirect(reverse('social_media:index'))
 
     elif request.method == "GET":
@@ -59,6 +61,8 @@ def register(request):
             request.session.clear()
             request.session['sessionUserID'] = verify[1]
             request.session['sessionUserName'] = verify[2]
+            # may switch method for this later
+            request.session['pID'] = 0
             return redirect(reverse('social_media:index'))
 
         else:

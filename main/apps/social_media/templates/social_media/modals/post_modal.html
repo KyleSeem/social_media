@@ -2,7 +2,7 @@
 
 <!-- modal for new post pop-up -->
 
-<div id="newPostModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="newPostModalLabel" aria-hidden="true">
+<div id="newPostModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="newPostModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <!-- modal header -->
@@ -18,7 +18,9 @@
                 {% csrf_token %}
                 <div class="modal-body">
                     <div id="selectAndPreview" class="img-thumbnail">
-                        <img class="img-thumbnail" style="border:none;" src="../media/{{ new_pic.photo }}" alt="{{ new_pic.id }}" />
+                        {% if new_pic %}
+                            <img class="img-thumbnail" style="border:none;" src="../media/{{ new_pic.photo }}" alt="{{ new_pic.id }}" />
+                        {% endif %}
                     </div>
 
                     <div id="newPostForm">
@@ -29,38 +31,22 @@
                         </div>
                     </div>
                 </div>
-
+        <!-- modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <input type="submit" class="btn btn-primary" value="Post Photo" />
                 </div>
             </form>
 
-
-            <!-- <div class="modal-body">
-                <div id="selectAndPreview" class="img-thumbnail">
-                    <img class="img-thumbnail" style="border:none;" src="../media/{{ new_pic.photo }}" alt="{{ new_pic.id }}" />
-                </div>
-
-                <div id="newPostForm">
-                    <form action="new_post" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
-                        <input type="hidden" name="photo" id="photo" value="{{ request.session.pID }}" />
-                        <div class="form-group">
-                            <textarea id="caption-text" class="form-control" placeholder="add a caption..."></textarea>
-                            <input class="d-none" type="submit" value="Submit" />
-                        </div>
-                    </form>
-                </div>
-            </div> -->
-
-        <!-- modal footer -->
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button id="submitPost" type="submit" class="btn btn-primary">Post Photo</button>
-            </div> -->
         <!-- end of modal content -->
         </div>
     </div>
 </div>
+
+<!-- hidden form gets triggered when user 'cancels' submission / calls scrap function that deletes this image from database -->
+<form class="d-none" action="scrap" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
+    <input type="hidden" name="photo" id="photo" value="{{ request.session.pID }}" />
+    <input type="submit" class="d-none" id="scrap" value="scrap photo" />
+</form>

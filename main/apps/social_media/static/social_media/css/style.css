@@ -25,6 +25,7 @@ body {
         #myNav {
             background-color: #9ba9b6;
             font-size: 1.25rem;
+            color: #00000069;
         }
         #myIcon {
             width: 3.25em;
@@ -34,6 +35,9 @@ body {
         }
         #myNav div.dropdown-menu a:hover {
             background-color: #9ba9b6;
+        }
+        #myNav div.dropdown-divider {
+            border-top: 1px solid #9ba9b6;
         }
 
 
@@ -97,7 +101,7 @@ body {
     header h1 {
         font-size: 2.25rem;
     }
-        #myNav a {
+        #myNav a, label {
             font-size: .9rem;
         }
         #myIcon {

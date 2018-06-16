@@ -24,20 +24,20 @@
 
         // if new pic was just saved
         console.log({{ request.session.pID }});
-        if ({{ request.session.pID }} === 0) {
-            console.log('no new pic');
-        }
-        else if ({{ request.session.pID }} >= 1) {
-            console.log('one new pic');
+
+        if ({{ request.session.pID }} != 0) {
+            console.log('new pic');
             $('#newPostModalButton').trigger('click');
-        }
+        };
 
 
-        // $('#submitPost').click(function() {
-        //     console.log('submitting');
-        //     $('#newPostForm').submit();
-        // })
+        $('#newPostModal').on('hidden.bs.modal', function() {
+            console.log('modal has been hidden');
+            $('#scrap').trigger('click');
 
+            // trigger the scrap of the last photo created
+            // this will only happen the modal has been closed by the user WITHOUT saving a brick
+        });
 
     });
 </script>

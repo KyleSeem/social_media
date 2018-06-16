@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# apps/social_media/views.py
+
 from __future__ import unicode_literals
 import os
 
@@ -8,7 +10,8 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import JsonResponse
-from .models import User, Brick, Photo, Comment
+from .models import User, Photo, Brick, Comment
+from .forms import PhotoUploadForm
 
 
 # Create your views here.
@@ -19,6 +22,7 @@ from .models import User, Brick, Photo, Comment
     # print (request.session['sessionUserName'])
     # print ('-'*20)
 
+# dashboard/main page
 def index(request):
     # Photo.objects.all().delete()
     # request.session['pID'] = 0
@@ -27,20 +31,20 @@ def index(request):
         'photos':Photo.objects.all(), # change this to bricks
         'nav_dashboard':'active',
     }
-    if request.session['pID'] >= 1:
-        context['new_pic'] = Photo.objects.get(id=request.session['pID'])
+    if 'pID' in request.session:
+        if request.session['pID'] >= 1:
+            context['new_pic'] = Photo.objects.get(id=request.session['pID'])
     return render(request, 'social_media/index.html', context)
 
 
-def account(request, id):
-    print(id)
-
+# user's acount page
+def myAccount(request):
+    ##### add validation to show only user's info OR change to id kwarg
     context = {
-        'sessionUser':User.objects.get(id=id),
+        # 'sessionUser':User.objects.get(id=id),
         'users':User.objects.all(),
         'nav_account':'active',
     }
-
     return render(request, 'social_media/account.html', context)
 
 
@@ -48,6 +52,7 @@ def new_post(request):
     # take photo that was just saved, load page as if it were the dash, but include the id of the new pic, trigger modal pop with form for new post
     if request.method == "POST":
         print (request.POST)
+        request.session['pID'] = 0
         return redirect(reverse('social_media:index'))
         # verify = Message.messageManager.create(request.POST)
         #
@@ -58,23 +63,28 @@ def new_post(request):
         #     print ('something went wrong')
         #     return redirect(reverse('social_media:index'))
 
+# if user 'cancels' out of modal instead of submitting new brick, delete the canceled photo from database
+def scrap(request):
+    request.session['pID'] = 0
+    if request.method == "POST":
+        print request.POST
+        print request.session['pID']
+        return redirect(reverse('social_media:index'))
 
 
 def add_photo(request):
     if request.method == "POST":
-        # set validation
-        id = request.POST['user']
-        new_photo = Photo()
-        new_photo.user = User.objects.get(id=id)
-        new_photo.photo = request.FILES['photo']
-        new_photo.save()
-        saved = True
+        form = PhotoUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            print ('valid entry')
+            new_photo = form.save()
+            request.session['pID'] = new_photo.id
 
-        request.session['pID'] = new_photo.id
-        return redirect(reverse('social_media:index'))
+            return redirect(reverse('social_media:index'))
 
-
-# def rotate_image(filepath):
+        else:
+            print ('invalid entry')
+            return redirect(reverse('social_media:index'))
 
 
 
@@ -87,14 +97,3 @@ def myAlbum(request):
     if request.method == "GET":
         print ('-'*20)
         return render(request, 'social_media/album.html', context)
-
-
-
-
-
-def poop(request):
-    context = {
-        'nav_account':'active',
-        'users':User.objects.all(),
-    }
-    return render(request, 'social_media/account.html', context)

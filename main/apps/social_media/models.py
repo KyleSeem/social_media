@@ -40,6 +40,7 @@ class PhotoManager(models.Manager):
 class Photo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to=upload_path)
+    orientation = models.CharField(max_length=2)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -47,7 +48,7 @@ class Photo(models.Model):
 
 
 # whole post - includes user, photo and user-added caption
-class Brick(models.Model):
+class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
     caption = models.CharField(max_length=255)
@@ -55,12 +56,12 @@ class Brick(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'bricks'
+        db_table = 'posts'
 
-# comments are tied to a single brick, include commentor as user and brick id
+# comments are tied to a single post, include commentor as user and post id
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    brick = models.ForeignKey(Brick, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

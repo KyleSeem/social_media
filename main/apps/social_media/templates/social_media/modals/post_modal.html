@@ -17,17 +17,17 @@
             <form action="new_post" method="POST">
                 {% csrf_token %}
                 <div class="modal-body">
-                    <div id="selectAndPreview" class="img-thumbnail">
+                    <div id="photoWrapper" class="img-thumbnail">
                         {% if new_pic %}
-                            <img class="img-thumbnail" style="border:none;" src="../media/{{ new_pic.photo }}" alt="{{ new_pic.id }}" />
+                            <img class="img-thumbnail {{ new_pic.orientation }}" style="border:none;" src="../media/{{ new_pic.photo }}" alt="{{ new_pic.id }}" />
                         {% endif %}
                     </div>
 
-                    <div id="newPostForm">
-                        <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
-                        <input type="hidden" name="photo" id="photo" value="{{ request.session.pID }}" />
+                    <div>
+                        <input id="user" type="hidden" name="user" value="{{ request.session.sessionUserID }}" />
+                        <input id="photo" type="hidden" name="photo" value="{{ request.session.pID }}" />
                         <div class="form-group">
-                            <textarea id="caption-text" class="form-control" placeholder="add a caption..."></textarea>
+                            <textarea id="caption" name="caption" class="form-control" placeholder="add a caption..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
         <!-- end of modal content -->
         </div>
     </div>
-</div>
+</div> <!-- close modal -->
 
 <!-- hidden form gets triggered when user 'cancels' submission / calls scrap function that deletes this image from database -->
 <form class="d-none" action="scrap" method="POST">

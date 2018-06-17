@@ -1,0 +1,35 @@
+
+
+<!-- modal for view post or image -->
+
+<div id="viewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <!-- modal header -->
+            <!-- <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel">Post a new photo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> -->
+
+        <!-- modal body -->
+            <div class="modal-body">
+                <div class="img-thumbnail">
+                    <img class="img-thumbnail {{ photo.orientation }}" style="border:none;" src="../media/{{ photo.photo }}" alt="{{ photo.id }}" />
+                </div>
+
+                <div class="card-body">
+                </div>
+
+            </div>
+    <!-- modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <input type="submit" class="btn btn-primary" value="Post Photo" />
+            </div>
+
+        <!-- end of modal content -->
+        </div>
+    </div>
+</div> <!-- close modal -->

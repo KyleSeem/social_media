@@ -8,12 +8,22 @@
 {% block content %}
 <div class="grid">
     <div class="grid-sizer"></div>
-    {% if photos %}
-        {% for photo in photos %}
+    {% if posts %}
+        {% for post in posts %}
             <div class="grid-item">
                 <div class="img-thumbnail">
-                    <img class="img-thumbnail" style="border:none;" src="../media/{{ photo.photo }}" alt="{{ photo.id }}" />
-                    <figcaption class="figure-caption text-left">This is where the initial post will go</figcaption>
+                    <img class="img-fluid img-thumbnail border-0" src="../media/{{ post.photo.photo }}" alt="" />
+                    <!-- <div class="card-body">
+                        <strong>{{ post.user.username }} at {{ post.created_at }} </strong>
+                        {{ post.caption }}
+                    </div> -->
+                    <div class="media">
+                        <img id="profilePic" class="mr-3" src="../static/social_media/img/frame1.png" alt="" />
+                        <div class="media-body">
+                            <h6 class="mt-0">{{ post.user.username }} at {{ post.created_at }}</h6>
+                            {{ post.caption }}
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endfor %}

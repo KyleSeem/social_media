@@ -36,21 +36,8 @@
             $('#scrap').trigger('click');
 
             // trigger the scrap of the last photo created
-            // this will only happen the modal has been closed by the user WITHOUT saving a brick
+            // this will only happen the modal has been closed by the user WITHOUT saving a post
         });
 
     });
 </script>
-
-
-<!-- <div id="selectAndPreview" class="img-thumbnail">
-    <img id="cloud" src="../static/social_media/img/cloud_upload_icon.png" alt="cloud icon" />
-    <form enctype="multipart/form-data" action="add_photo" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="user" id="user" value="{{ request.session.sessionUserID }}" />
-
-        <label id="getPhotoButton" class="btn btn-info d-block" for="photo">Browse Photos</label>
-        <input id="photo" class="d-none" type="file" name="photo" />
-        <input id="hiddenSubmit" class="d-none" type="submit" />
-    </form>
-</div> -->

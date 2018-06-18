@@ -5,30 +5,36 @@
 <div id="viewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-        <!-- modal header -->
-            <!-- <div class="modal-header">
-                <h5 class="modal-title" id="viewModalLabel">Post a new photo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div> -->
-
         <!-- modal body -->
             <div class="modal-body">
                 <div class="img-thumbnail">
-                    <img class="img-thumbnail {{ photo.orientation }}" style="border:none;" src="../media/{{ photo.photo }}" alt="{{ photo.id }}" />
+                    <img id="viewImage" class="img-thumbnail {{ this_post.photo.orientation }}" style="border:none;" src="../media/{{ this_post.photo.photo }}" />
                 </div>
 
-                <div class="card-body">
+                <div class="media">
+                    <img id="profilePic" class="mr-3" src="../static/social_media/img/frame1.png" alt="" />
+                    <div class="media-body">
+                        <h6 class="mt-0">{{ this_post.user.username }} at {{ this_post.created_at }}</h6>
+                        {{ this_post.caption }}
+
+                        <div class="media">
+                            <img class="mr-3" src="" alt="session user profile pic" width="20" height="20"/>
+                            <form class="" action="new_comment" method="POST">
+                                {% csrf_token %}
+                                <input id="user" type="hidden" name="user" value="{{ request.session.sessionUserID }}" />
+                                <input id="post" type="hidden" name="post" value="{{ this_post.id }}" />
+                                <div class="mt-0 form-row">
+                                    <input id="comment" class="form-control" type="text" name="comment" placeholder="add comment..." />
+                                    <input class="btn btn-success" type="submit" value="comment" />
+                                </div>
+                            </form>
+                         <!-- if comments, comments here -->
+
+                        </div>
+                    </div>
                 </div>
 
             </div>
-    <!-- modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <input type="submit" class="btn btn-primary" value="Post Photo" />
-            </div>
-
         <!-- end of modal content -->
         </div>
     </div>

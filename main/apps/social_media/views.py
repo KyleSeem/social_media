@@ -25,13 +25,20 @@ def index(request):
     # request.session['pID'] = 8
     context = {
         'users':User.objects.all(),
-        'posts':Post.objects.all().order_by('-created_at'), 
+        'posts':Post.objects.all().order_by('-created_at'),
         'photos':Photo.objects.all(),
         'nav_dashboard':'active',
+        'launch':0
     }
     if 'pID' in request.session:
         if request.session['pID'] >= 1:
             context['new_pic'] = Photo.objects.get(id=request.session['pID'])
+
+    if 'this_post' in request.session:
+        context['this_post'] = Post.objects.get(id=request.session['this_post'])
+        context['launch'] = 1
+
+
     return render(request, 'social_media/index.html', context)
 
 # user's album
@@ -55,6 +62,18 @@ def myAccount(request, **kwargs):
         'nav_account':'active',
     }
     return render(request, 'social_media/account.html', context)
+
+
+
+def view_post(request):
+    if request.method == "POST":
+        print ('-'*40)
+        print request.POST['this_post']
+        request.session['this_post'] = request.POST['this_post']
+
+
+        return redirect(reverse('social_media:index'))
+    # return render(request, 'social_media/index.html', context)
 
 
 ###### CRUD ######

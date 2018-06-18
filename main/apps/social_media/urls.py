@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^add_photo$', views.add_photo, name='add_photo'),
     url(r'^new_post$', views.new_post, name='new_post'),
     url(r'^scrap$', views.scrap, name='scrap'),
+    url(r'^view_post$', views.view_post, name='view_post'),
 ]

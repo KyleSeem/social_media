@@ -16,6 +16,23 @@
             $grid.isotope('layout');
         });
 
+        // $('#viewPostLink').click(function() {
+        //     console.log('it was clicked');
+        //     $('#viewPostSubmit').trigger('click');
+        //     console.log('submitting form');
+        // });
+
+        console.log($('#viewPostLink'));
+        $('.linkspan').click(function() {
+            var myForm = '#viewPostForm' + this.id;
+            $(myForm).submit();
+            console.log('submitting?');
+        });
+
+        if ({{ launch }} == 1) {
+            console.log('LAUNCH');
+            $('#hiddenViewButton').click();
+        };
 
     // new post modal
         $('#photo').change(function() {
@@ -23,8 +40,6 @@
         });
 
         // if new pic was just saved
-        console.log({{ request.session.pID }});
-
         if ({{ request.session.pID }} != 0) {
             console.log('new pic');
             $('#newPostModalButton').trigger('click');

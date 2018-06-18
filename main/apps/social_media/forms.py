@@ -17,3 +17,7 @@ class NewPostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('user', 'photo', 'caption')
+
+class viewPostForm(forms.Form):
+    class Meta:
+        fields = ('post')

@@ -30,6 +30,9 @@ body {
         #myIcon {
             width: 3.25em;
         }
+        #myNav label:hover {
+            cursor: pointer;
+        }
         #myNav div.dropdown-menu {
             background-color: #afbbc5;
         }
@@ -68,8 +71,14 @@ body {
         padding: .5em;
     }
 
+    /* div.grid-item:hover {
+        cursor: pointer;
+    } */
 
 
+    .linkspan:hover {
+        cursor: pointer;
+    }
 
 /* ------------------------------------------------ */
 /* ------- LARGE+ DEVICES/SCREENS ------- */

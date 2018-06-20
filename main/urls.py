@@ -23,6 +23,6 @@ urlpatterns = [
     url(r'^login_reg/', include('apps.login_reg.urls', namespace='login_reg')),
     url(r'^kittenstagram/', include('apps.social_media.urls', namespace='kitten_stagram')),
     url(r'^', include('apps.login_reg.urls', namespace='login_reg')),
-] # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG is True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

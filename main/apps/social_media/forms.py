@@ -1,7 +1,7 @@
 # apps/social_media/forms.py
 
 from django import forms
-from .models import User, Photo, Post
+from .models import User, Photo, Post, Comment
 
 
 class PhotoUploadForm(forms.ModelForm):
@@ -18,6 +18,8 @@ class NewPostForm(forms.ModelForm):
         model = Post
         fields = ('user', 'photo', 'caption')
 
-class viewPostForm(forms.Form):
+
+class NewCommentForm(forms.ModelForm):
     class Meta:
-        fields = ('post')
+        model = Comment
+        fields = ('user', 'post', 'comment')

@@ -37,6 +37,10 @@
 
         <div id="modal-block">
             {% include 'social_media/modals/post_modal.html' %}
+            
+            {% if this_post %}
+                {% include 'social_media/modals/view_modal.html' %}
+            {% endif %}
         </div>
 
         <div id="main-container" class="container-fluid">

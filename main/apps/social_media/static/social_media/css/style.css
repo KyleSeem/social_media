@@ -54,15 +54,16 @@ body {
         width: fit-content;
     }
         #photoWrapper {
-            margin-bottom: 2em;
             width: fit-content;
         }
-            img.img-thumbnail.pt {
-                max-height: 60vh;
-            }
             img#profilePic {
                 width: 4em;
             }
+    /* viewModal */
+    #viewModal div.modal-dialog {
+        /* max-width: 90vw; */
+        max-height: 90vh;
+    }
 
 /* isotope */
     .grid-sizer,
@@ -102,6 +103,23 @@ body {
     .grid-item {
         width: 33.333%;
     }
+
+/* modals */
+    img.img-thumbnail.pt {
+        max-height: 80vh;
+    }
+    img.img-thumbnail.ls {
+        max-width: 50vw;
+    }
+    #viewModal div.modal-dialog {
+        max-width: 90vw;
+    }
+    #viewModal div.modal-body {
+        /* display: flex; */
+    }
+    /* #photoWrapper {
+        margin-bottom: 0;
+    } */
 
 }
 

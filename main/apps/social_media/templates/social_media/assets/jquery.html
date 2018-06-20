@@ -16,42 +16,44 @@
             $grid.isotope('layout');
         });
 
-        // $('#viewPostLink').click(function() {
-        //     console.log('it was clicked');
-        //     $('#viewPostSubmit').trigger('click');
-        //     console.log('submitting form');
-        // });
 
-        console.log($('#viewPostLink'));
+// VIEW POST
+    // triggers submission of data for selected post/image on click
         $('.linkspan').click(function() {
             var myForm = '#viewPostForm' + this.id;
             $(myForm).submit();
-            console.log('submitting?');
         });
 
+        console.log({{ launch }});
+    // prompts modal launch with data for selected post/image
         if ({{ launch }} == 1) {
-            console.log('LAUNCH');
             $('#hiddenViewButton').click();
         };
 
+        $('#viewModal').on('hidden.bs.modal', function() {
+            console.log('view modal closed');
+            $('#clearLaunch')[0].click();
+            console.log({{ launch }});
+        });
+
+
+// NEW POST
     // new post modal
         $('#photo').change(function() {
             $('#hiddenSubmit').trigger('click');
         });
 
-        // if new pic was just saved
+    // if new pic was just saved, launch newPostModal
         if ({{ request.session.pID }} != 0) {
-            console.log('new pic');
             $('#newPostModalButton').trigger('click');
         };
 
-
+    // if newPostModal is closed without saving post, trigger 'scrap' view to delete photo
+        // this will only happen the modal has been closed by the user WITHOUT saving a post
         $('#newPostModal').on('hidden.bs.modal', function() {
-            console.log('modal has been hidden');
             $('#scrap').trigger('click');
 
-            // trigger the scrap of the last photo created
-            // this will only happen the modal has been closed by the user WITHOUT saving a post
+            // delete image from media folder - need to write this code still
         });
 
     });
